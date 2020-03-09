@@ -35,6 +35,14 @@ namespace Voortplanting
             }
         }
 
+        //Overloaded constructor
+        public Mens(Oogkleur oogin, Geslacht geslin, int maxLengtein)
+        {
+            Oogkleur = oogin;
+            Geslacht = geslin;
+            MaxLengte = maxLengtein;
+        }
+
         //Eigenschappen
         public Geslacht Geslacht { get; private set; }//private set omdat je niet opeens je mens andere oogkleur of geslacht kan geven (voorlopig)
         public Oogkleur Oogkleur { get; private set; }
