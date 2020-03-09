@@ -23,6 +23,15 @@ namespace Voortplanting
             {
                 mens.ToonMens();
             }
+
+            Mens baby;
+            baby = mensen[0].Plantvoort(mensen[11]);//kind van 1ste vrouw met laatste man
+
+            baby.ToonMens();
+
+
+
+
         }
     }
     }

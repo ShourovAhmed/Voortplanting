@@ -95,18 +95,18 @@ namespace Voortplanting
                 Oogkleur oogkind = this.Oogkleur;
                 if (r.Next(0,2) == 0)
                 {
-                    oogkind = man.Oogkleur;
+                    oogkind = man.Oogkleur;//50% kans op kleur ogen van vader
                 }
                 Geslacht g = Geslacht.Man;
                 if (r.Next(0,2) == 0)
                 {
-                    g = Geslacht.Vrouw;
+                    g = Geslacht.Vrouw;//50% kans op vrouw
                 }
 
                return new Mens(oogkind, g, lengtekind);
             }
             else
-                return null;//als het een man is
+                return null;//als het een man is, kunnen geen kinderen baren
         }
 
 
