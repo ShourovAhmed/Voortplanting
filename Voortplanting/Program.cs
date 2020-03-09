@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Voortplanting
 {
@@ -6,7 +7,23 @@ namespace Voortplanting
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            List<Mens> mensen = new List<Mens>();
+
+            for (int i = 0; i < 6; i++)
+            {
+                mensen.Add(new Mens(Geslacht.Vrouw));
+            }
+
+            for (int i = 0; i < 6; i++)
+            {
+                mensen.Add(new Mens(Geslacht.Man));
+            }
+
+            foreach(var mens in mensen)
+            {
+                mens.ToonMens();
+            }
         }
     }
-}
+    }
+

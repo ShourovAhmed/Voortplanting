@@ -43,11 +43,17 @@ namespace Voortplanting
             MaxLengte = maxLengtein;
         }
 
+        public Mens(Geslacht geslin) : this()//zo wordt de default const aangeroepen, eerst overschreven, dan gaat het verder (moet je niet alles van de default overtypen)
+        {
+            Geslacht = geslin;
+        }
+
         //Eigenschappen
         public Geslacht Geslacht { get; private set; }//private set omdat je niet opeens je mens andere oogkleur of geslacht kan geven (voorlopig)
         public Oogkleur Oogkleur { get; private set; }
 
         private double maxLengte;
+        private Geslacht vrouw;
 
         public double MaxLengte
         {
@@ -77,7 +83,7 @@ namespace Voortplanting
                     break;
             }
 
-            Console.WriteLine($"{MaxLengte/100: 0.00} m, {Geslacht}");
+            Console.WriteLine($"{MaxLengte/100.0: 0.00} m, {Geslacht}");
             Console.ResetColor();
         }
 
