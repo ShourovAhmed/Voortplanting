@@ -56,6 +56,31 @@ namespace Voortplanting
         }
 
 
+        //Methoden
+        public void ToonMens()
+        {
+            switch(Oogkleur)
+            {
+                case Oogkleur.Blauw:
+                    Console.BackgroundColor = ConsoleColor.Blue;
+                    break;
+                case Oogkleur.Bruin:
+                    Console.BackgroundColor = ConsoleColor.Black;
+                    break;
+                case Oogkleur.Groen:
+                    Console.BackgroundColor = ConsoleColor.Green;
+                    break;
+                case Oogkleur.Rood:
+                    Console.BackgroundColor = ConsoleColor.Red;
+                    break;
+                default:
+                    break;
+            }
+
+            Console.WriteLine($"{MaxLengte/100: 0.00} m, {Geslacht}");
+            Console.ResetColor();
+        }
+
 
 
 
