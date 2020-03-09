@@ -36,7 +36,7 @@ namespace Voortplanting
         }
 
         //Overloaded constructor
-        public Mens(Oogkleur oogin, Geslacht geslin, int maxLengtein)
+        public Mens(Oogkleur oogin, Geslacht geslin, double maxLengtein)
         {
             Oogkleur = oogin;
             Geslacht = geslin;
@@ -85,6 +85,28 @@ namespace Voortplanting
 
             Console.WriteLine($"{MaxLengte/100.0: 0.00} m, {Geslacht}");
             Console.ResetColor();
+        }
+
+        public Mens Plantvoort(Mens man)
+        {
+            if (Geslacht == Geslacht.Vrouw && man.Geslacht == Geslacht.Man)//enkel vrouwen kunnen babys hebben en man parameter moet ook een man zijn
+            {
+                double lengtekind = (man.MaxLengte + this.MaxLengte) / 2;//this betekent het object waarin we nu zitten
+                Oogkleur oogkind = this.Oogkleur;
+                if (r.Next(0,2) == 0)
+                {
+                    oogkind = man.Oogkleur;
+                }
+                Geslacht g = Geslacht.Man;
+                if (r.Next(0,2) == 0)
+                {
+                    g = Geslacht.Vrouw;
+                }
+
+               return new Mens(oogkind, g, lengtekind);
+            }
+            else
+                return null;//als het een man is
         }
 
 
