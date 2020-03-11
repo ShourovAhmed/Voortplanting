@@ -9,9 +9,12 @@ namespace Voortplanting
     class Mens
     {
         static Random r = new Random();
+
         //Default constructor
         public Mens()
         {
+            Generatie = 0;
+
             if (r.Next(0, 2) == 0)
             { Geslacht = Geslacht.Vrouw; }
 
@@ -36,11 +39,12 @@ namespace Voortplanting
         }
 
         //Overloaded constructor
-        public Mens(Oogkleur oogin, Geslacht geslin, double maxLengtein)
+        public Mens(Oogkleur oogin, Geslacht geslin, double maxLengtein, int genin)
         {
             Oogkleur = oogin;
             Geslacht = geslin;
             MaxLengte = maxLengtein;
+            Generatie = genin;
         }
 
         public Mens(Geslacht geslin) : this()//zo wordt de default const aangeroepen, eerst overschreven, dan gaat het verder (moet je niet alles van de default overtypen)
@@ -48,12 +52,13 @@ namespace Voortplanting
             Geslacht = geslin;
         }
 
-        //Eigenschappen
+        //Eigenschappen/Propertiess
+
+        public int Generatie { get; private set; }// private set omdat het onmogelijk is om persoon naar een andere generatie toe te schrijven
         public Geslacht Geslacht { get; private set; }//private set omdat je niet opeens je mens andere oogkleur of geslacht kan geven (voorlopig)
         public Oogkleur Oogkleur { get; private set; }
 
         private double maxLengte;
-        private Geslacht vrouw;
 
         public double MaxLengte
         {
@@ -83,13 +88,14 @@ namespace Voortplanting
                     break;
             }
 
-            Console.WriteLine($"{MaxLengte/100.0: 0.00} m, {Geslacht}");
+            Console.WriteLine($"{MaxLengte/100.0: 0.00} m, {Geslacht} van generatie {Generatie}");
             Console.ResetColor();
         }
 
         public Mens Plantvoort(Mens man)
         {
-            if (Geslacht == Geslacht.Vrouw && man.Geslacht == Geslacht.Man)//enkel vrouwen kunnen babys hebben en man parameter moet ook een man zijn
+            if (Geslacht == Geslacht.Vrouw && man.Geslacht == Geslacht.Man && this.Generatie == man.Generatie)//enkel vrouwen kunnen babys hebben en man parameter moet ook een man zijn
+                                                                               //this hoeft er niet bij, je kan ook gewoon Generatie schrijven
             {
                 double lengtekind = (man.MaxLengte + this.MaxLengte) / 2;//this betekent het object waarin we nu zitten
                 Oogkleur oogkind = this.Oogkleur;
@@ -103,7 +109,7 @@ namespace Voortplanting
                     g = Geslacht.Vrouw;//50% kans op vrouw
                 }
 
-               return new Mens(oogkind, g, lengtekind);
+               return new Mens(oogkind, g, lengtekind, Generatie+1);
             }
             else
                 return null;//als het een man is, kunnen geen kinderen baren

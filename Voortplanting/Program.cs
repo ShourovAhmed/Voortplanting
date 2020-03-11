@@ -19,7 +19,7 @@ namespace Voortplanting
                 mensen.Add(new Mens(Geslacht.Man));
             }
 
-            foreach(var mens in mensen)
+            foreach (var mens in mensen)
             {
                 mens.ToonMens();
             }
@@ -27,12 +27,14 @@ namespace Voortplanting
             Mens baby;
             baby = mensen[0].Plantvoort(mensen[11]);//kind van 1ste vrouw met laatste man
 
-            baby.ToonMens();
+            Console.WriteLine("\n");
+            Console.Write("Baby: "); baby.ToonMens();
+
 
 
 
 
         }
     }
-    }
+}
 
