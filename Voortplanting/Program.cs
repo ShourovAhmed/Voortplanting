@@ -9,17 +9,20 @@ namespace Voortplanting
         {
             List<Mens> mensen = new List<Mens>();
 
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 10; i++)
             {
                 mensen.Add(new Mens(Geslacht.Vrouw));
             }
 
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 10; i++)
             {
                 mensen.Add(new Mens(Geslacht.Man));
             }
 
-            foreach (var mens in mensen)
+            Mens.Simuleer(mensen);
+
+
+            /*foreach (var mens in mensen)
             {
                 mens.ToonMens();
             }
@@ -28,7 +31,7 @@ namespace Voortplanting
             baby = mensen[0].Plantvoort(mensen[11]);//kind van 1ste vrouw met laatste man
 
             Console.WriteLine("\n");
-            Console.Write("Baby: "); baby.ToonMens();
+            Console.Write("Baby: "); baby.ToonMens();*/
 
 
 

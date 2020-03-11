@@ -70,7 +70,7 @@ namespace Voortplanting
         //Methoden
         public void ToonMens()
         {
-            switch(Oogkleur)
+            switch (Oogkleur)
             {
                 case Oogkleur.Blauw:
                     Console.BackgroundColor = ConsoleColor.Blue;
@@ -88,33 +88,57 @@ namespace Voortplanting
                     break;
             }
 
-            Console.WriteLine($"{MaxLengte/100.0: 0.00} m, {Geslacht} van generatie {Generatie}");
+            Console.WriteLine($"{MaxLengte / 100.0: 0.00} m, {Geslacht} ({Generatie})");
             Console.ResetColor();
         }
 
         public Mens Plantvoort(Mens man)
         {
             if (Geslacht == Geslacht.Vrouw && man.Geslacht == Geslacht.Man && this.Generatie == man.Generatie)//enkel vrouwen kunnen babys hebben en man parameter moet ook een man zijn
-                                                                               //this hoeft er niet bij, je kan ook gewoon Generatie schrijven
+                                                                             //this hoeft er niet bij, je kan ook gewoon Generatie schrijven
             {
                 double lengtekind = (man.MaxLengte + this.MaxLengte) / 2;//this betekent het object waarin we nu zitten
                 Oogkleur oogkind = this.Oogkleur;
-                if (r.Next(0,2) == 0)
+                if (r.Next(0, 2) == 0)
                 {
                     oogkind = man.Oogkleur;//50% kans op kleur ogen van vader
                 }
                 Geslacht g = Geslacht.Man;
-                if (r.Next(0,2) == 0)
+                if (r.Next(0, 2) == 0)
                 {
                     g = Geslacht.Vrouw;//50% kans op vrouw
                 }
 
-               return new Mens(oogkind, g, lengtekind, Generatie+1);
+                return new Mens(oogkind, g, lengtekind, Generatie + 1);
             }
             else
                 return null;//als het een man is, kunnen geen kinderen baren
         }
 
+        public static void Simuleer (List<Mens> testlijst, int gentest = 5)
+        {
+            for (int i = 0; i < gentest; i++)
+            {
+                List<Mens> deKribbe = new List<Mens>();
+                foreach (var mens in testlijst)
+                {
+                    int partner = r.Next(0, testlijst.Count);
+                    Mens babynew = mens.Plantvoort(testlijst[partner]);
+                    if (babynew != null)
+                    {
+                        deKribbe.Add(babynew);
+                    }
+
+                }
+                testlijst.AddRange(deKribbe);//nadat alle babys zijn gemaakt en in deKribbe lijst zijn geplaats -> deze lijst aan de bestaande toevoegen
+            }
+
+            foreach (var mens in testlijst)
+            {
+                mens.ToonMens();
+            }
+
+        }
 
 
 
