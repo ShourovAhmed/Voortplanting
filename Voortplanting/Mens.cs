@@ -5,7 +5,7 @@ using System.Text;
 namespace Voortplanting
 {
     enum Geslacht { Man, Vrouw }
-    enum Oogkleur { Blauw, Bruin, Groen, Rood }
+    enum Oogkleur { Blauw, Bruin, Groen, Rood, Geel }
     class Mens
     {
         static Random r = new Random();
@@ -84,6 +84,9 @@ namespace Voortplanting
                 case Oogkleur.Rood:
                     Console.BackgroundColor = ConsoleColor.Red;
                     break;
+                case Oogkleur.Geel:
+                    Console.BackgroundColor = ConsoleColor.Yellow;
+                    break;
                 default:
                     break;
             }
@@ -95,7 +98,7 @@ namespace Voortplanting
         public Mens Plantvoort(Mens man)
         {
             if (Geslacht == Geslacht.Vrouw && man.Geslacht == Geslacht.Man && this.Generatie == man.Generatie)//enkel vrouwen kunnen babys hebben en man parameter moet ook een man zijn
-                                                                             //this hoeft er niet bij, je kan ook gewoon Generatie schrijven
+                                                                                                              //this hoeft er niet bij, je kan ook gewoon Generatie schrijven
             {
                 double lengtekind = (man.MaxLengte + this.MaxLengte) / 2;//this betekent het object waarin we nu zitten
                 Oogkleur oogkind = this.Oogkleur;
@@ -103,6 +106,12 @@ namespace Voortplanting
                 {
                     oogkind = man.Oogkleur;//50% kans op kleur ogen van vader
                 }
+
+                if (r.Next(0, 101) == 0)
+                {
+                    oogkind = Oogkleur.Geel;
+                }
+
                 Geslacht g = Geslacht.Man;
                 if (r.Next(0, 2) == 0)
                 {
@@ -115,7 +124,7 @@ namespace Voortplanting
                 return null;//als het een man is, kunnen geen kinderen baren
         }
 
-        public static void Simuleer (List<Mens> testlijst, int gentest = 5)
+        public static void Simuleer(List<Mens> testlijst, int gentest = 5)
         {
             for (int i = 0; i < gentest; i++)
             {
@@ -130,17 +139,62 @@ namespace Voortplanting
                     }
 
                 }
+
+
+
                 testlijst.AddRange(deKribbe);//nadat alle babys zijn gemaakt en in deKribbe lijst zijn geplaats -> deze lijst aan de bestaande toevoegen
             }
 
-            foreach (var mens in testlijst)
-            {
-                mens.ToonMens();
-            }
+            //Statistieken verkrijgen
+            GenereerStats(testlijst, gentest);
+
+            //effe in commentaar om niet iedereen te tonen
+
+            //foreach (var mens in testlijst)
+            //{
+            //    mens.ToonMens();
+            //}
 
         }
 
+        private static void GenereerStats(List<Mens> deKribbe, int aantalgens)
+        {
+            for (int i = 0; i < aantalgens; i++)
+            {
+                int aantalVrouwen = 0;
+                double gemiddeldeLengte = 0.0;
+                int aantalinGen = 0;
+                int aantalGeel = 0;
+
+                foreach (var mens in deKribbe)
+                {
+                    if (mens.Generatie == i)
+                    {
+                        if (mens.Oogkleur == Oogkleur.Geel)
+                        {
+                            aantalGeel++;
+                        }
+                        if (mens.Geslacht == Geslacht.Vrouw)
+                        {
+                            aantalVrouwen++;
+                        }
+
+                    }
+                    gemiddeldeLengte += mens.MaxLengte;
+                    aantalinGen++;
 
 
+                }
+                gemiddeldeLengte = gemiddeldeLengte / aantalinGen;
+
+                Console.WriteLine($"Generatie {i}");
+                Console.WriteLine($"\tGemiddelde lengte = {gemiddeldeLengte}");
+                Console.WriteLine($"\tAantal vrouwen: {aantalVrouwen}/{aantalinGen}");
+                Console.WriteLine($"\tMensen met gele ogen: {aantalGeel}");
+            }
+
+
+
+        }
     }
 }
